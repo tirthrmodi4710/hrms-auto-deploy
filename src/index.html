@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HRMS Login - HRMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .card-shadow {
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-input:focus {
+            box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.1);
+        }
+        
+        .logo-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .remember-checkbox:checked {
+            background-color: #8b5cf6;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-4xl">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-white mb-2">HRMS</h1>
+            <p class="text-white/80 text-lg">Building imaginations to reality</p>
+        </div>
+        
+        <div class="bg-white rounded-2xl card-shadow overflow-hidden flex flex-col md:flex-row">
+            <!-- Left panel - Form -->
+            <div class="w-full md:w-1/2 p-8 md:p-12">
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Sign In</h2>
+                    <p class="text-gray-600">Please enter your details to sign in</p>
+                </div>
+                
+                <form action="dashboard.html" class="space-y-6">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2" for="email">Email Address</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-envelope text-gray-400"></i>
+                            </div>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                placeholder="tirth.logbinary@gmail.com"
+                                value="tirth.logbinary@gmail.com"
+                                class="w-full pl-10 p-3 border border-gray-300 rounded-lg form-input focus:border-purple-500 focus:outline-none transition"
+                            />
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2" for="password">Password</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-lock text-gray-400"></i>
+                            </div>
+                            <input 
+                                type="password" 
+                                id="password" 
+                                placeholder="Enter your password"
+                                value="••••••••"
+                                class="w-full pl-10 p-3 border border-gray-300 rounded-lg form-input focus:border-purple-500 focus:outline-none transition"
+                            />
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                <button type="button" id="togglePassword" class="text-gray-400 hover:text-gray-600">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <input 
+                                type="checkbox" 
+                                id="remember"
+                                checked
+                                class="h-4 w-4 text-purple-600 border-gray-300 rounded remember-checkbox focus:ring-purple-500"
+                            />
+                            <label for="remember" class="ml-2 text-gray-700 text-sm">Remember Me</label>
+                        </div>
+                        
+                        <a href="#" class="text-purple-600 hover:text-purple-800 text-sm font-medium">Forgot Password?</a>
+                    </div>
+                    
+                    <button 
+                        type="submit"
+                        class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-medium py-3 px-4 rounded-lg transition duration-300 shadow-md hover:shadow-lg"
+                    >
+                        Sign In
+                    </button>
+                    
+                    <div class="text-center text-sm text-gray-600 pt-4">
+                        <p>Don't have an account? <a href="#" class="text-purple-600 hover:text-purple-800 font-medium">Sign Up</a></p>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Right panel - Illustration -->
+            <div class="w-full md:w-1/2 bg-gradient-to-br from-indigo-100 to-purple-100 flex flex-col items-center justify-center p-8 md:p-12">
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl font-bold logo-text mb-2">HRMS Portal</h3>
+                    <p class="text-gray-700">Human Resource Management System</p>
+                </div>
+                
+                <div class="w-64 h-64 mb-8 flex items-center justify-center">
+                    <img 
+                        src="https://cdn-icons-png.flaticon.com/512/1995/1995574.png" 
+                        alt="HRMS Illustration"
+                        class="w-full h-full object-contain"
+                    />
+                </div>
+                
+                <div class="text-center">
+                    <h4 class="font-bold text-gray-800 mb-2">Welcome Back!</h4>
+                    <p class="text-gray-600 text-sm max-w-xs">Sign in to access your HRMS dashboard and manage all employee-related tasks efficiently.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-8 text-white/70 text-sm">
+            <p>© 2023 HRMS. All rights reserved.</p>
+        </div>
+    </div>
+    
+    <script>
+        // Toggle password visibility
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            // Toggle eye icon
+            const eyeIcon = this.querySelector('i');
+            if (type === 'text') {
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        });
+        
+        // Form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Simple validation
+            if (!email || !password) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            // In a real app, you would send this to a server
+            // For demo, just redirect to dashboard
+            window.location.href = 'dashboard.html';
+        });
+    </script>
+</body>
+</html>

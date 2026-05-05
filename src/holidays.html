@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HRMS Holidays</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .sidebar {
+            background: linear-gradient(180deg, #2c3e50 0%, #1a2530 100%);
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .table-header {
+            background-color: #f8fafc;
+            font-weight: 600;
+            color: #475569;
+        }
+        
+        .holiday-row:hover {
+            background-color: #f1f5f9;
+        }
+        
+        .active-nav {
+            background-color: rgba(59, 130, 246, 0.2);
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .year-select {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 8px 16px;
+            background-color: white;
+            color: #475569;
+            font-weight: 500;
+        }
+        
+        .year-select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+    </style>
+</head>
+<body class="flex min-h-screen text-gray-800">
+    <!-- Sidebar -->
+    <div class="sidebar w-64 min-h-screen p-6">
+        <!-- Logo -->
+        <div class="mb-10">
+            <h1 class="text-2xl font-bold text-white">HRMS</h1>
+            <p class="text-gray-400 text-sm mt-1">Building imaginations to reality</p>
+        </div>
+        
+        <!-- HRMS Title -->
+        <h2 class="text-lg font-semibold text-gray-300 mb-6">HRMS</h2>
+        
+        <!-- Navigation -->
+        <nav class="space-y-2">
+            <a href="dashboard.html" class="flex items-center p-3 text-gray-300 hover:text-white hover:bg-white/10 rounded-lg transition">
+                <i class="fas fa-tachometer-alt mr-3"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="holidays.html" class="flex items-center p-3 text-white active-nav rounded-lg transition">
+                <i class="fas fa-calendar-alt mr-3"></i>
+                <span>Holidays</span>
+            </a>
+            <a href="leave.html" class="flex items-center p-3 text-gray-300 hover:text-white hover:bg-white/10 rounded-lg transition">
+                <i class="fas fa-sign-out-alt mr-3"></i>
+                <span>Leave</span>
+            </a>
+           
+            <a href="attendance.html" class="flex items-center p-3 text-gray-300 hover:text-white hover:bg-white/10 rounded-lg transition">
+                <i class="fas fa-clock mr-3"></i>
+                <span>Attendance</span>
+            </a>
+        </nav>
+        
+        <!-- Divider -->
+        <div class="my-8 border-t border-gray-700/50"></div>
+        
+        <!-- Upcoming Holidays -->
+        <div class="mt-10">
+            <h3 class="text-sm font-semibold text-gray-400 mb-3">Upcoming Holidays</h3>
+            <div class="space-y-3">
+                <div class="flex items-center p-3 bg-white/10 rounded-lg">
+                    <div class="text-center mr-3">
+                        <div class="text-white font-bold text-lg">01</div>
+                        <div class="text-gray-300 text-xs">Jan</div>
+                    </div>
+                    <div>
+                        <div class="text-white text-sm font-medium">New Year</div>
+                        <div class="text-gray-400 text-xs">Thursday</div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center p-3 bg-white/10 rounded-lg">
+                    <div class="text-center mr-3">
+                        <div class="text-white font-bold text-lg">14</div>
+                        <div class="text-gray-300 text-xs">Jan</div>
+                    </div>
+                    <div>
+                        <div class="text-white text-sm font-medium">Makar Sankranti</div>
+                        <div class="text-gray-400 text-xs">Wednesday</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col">
+        <!-- Top Bar -->
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Holidays</h2>
+                
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <i class="fas fa-bell text-gray-500 text-xl"></i>
+                        <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">2</span>
+                    </div>
+                    <div class="flex items-center bg-white p-3 rounded-lg shadow-sm">
+                        <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-3">
+                            A
+                        </div>
+                        <div>
+                            <div class="font-medium">HRMS</div>
+                            <div class="text-xs text-gray-500">HR Manager</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Year Selector -->
+            <div class="flex justify-between items-center mb-6">
+                <div class="text-gray-600">
+                    Showing holidays for <span class="font-semibold text-gray-800">2026</span>
+                </div>
+                
+                <div class="flex items-center space-x-3">
+                    <span class="text-gray-600">Filter by year:</span>
+                    <select class="year-select">
+                        <option value="2026" selected>2026</option>
+                        <option value="2025">2025</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                    </select>
+                    
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition flex items-center">
+                        <i class="fas fa-download mr-2"></i>
+                        Export
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Holiday Table -->
+        <div class="px-6 pb-6 flex-1">
+            <div class="card overflow-hidden">
+                <table class="w-full">
+                    <caption class="sr-only">List of company holidays for the year</caption>
+
+                    <thead class="table-header">
+                        <tr>
+                            <th class="p-4 text-left w-16">#</th>
+                            <th class="p-4 text-left">Holiday Name</th>
+                            <th class="p-4 text-left">Dates</th>
+                            <th class="p-4 text-left">Day</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        <!-- Row 1: New Year -->
+                        <tr class="holiday-row border-b border-gray-100">
+                            <td class="p-4 text-gray-500 font-medium">1</td>
+                            <td class="p-4">
+                                <div class="font-medium text-gray-800">New Year</div>
+                                <div class="text-gray-500 text-sm">Start of the new year</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="font-medium">01-Jan-2026</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="font-medium">Thursday</div>
+                            </td>
+                        </tr>
+                        
+                        <!-- Row 2: Makar Sankranti -->
+                        <tr class="holiday-row border-b border-gray-100">
+                            <td class="p-4 text-gray-500 font-medium">2</td>
+                            <td class="p-4">
+                                <div class="font-medium text-gray-800">Makar Sankranti</div>
+                                <div class="text-gray-500 text-sm">Harvest festival</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="font-medium">14-Jan-2026</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="font-medium">Wednesday</div>
+                            </td>
+                        </tr>
+                        
+                        <!-- Row 3: Republic Day -->
+                        <tr class="holiday-row border-b border-gray-100">
+                            <td class="p-4 text-gray-500 font-medium">3</td>
+                            <td class="p-4">
+                                <div class="font-medium text-gray-800">Republic Day</div>
+                                <div class="text-gray-500 text-sm">National holiday</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="font-medium">26-Jan-2026</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="font-medium">Monday</div>
+                            </td>
+                        </tr>
+                        
+                        <!-- Row 4: Dhuleti -->
+                        <tr class="holiday-row border-b border-gray-100">
+                            <td class="p-4 text-gray-500 font-medium">4</td>
+                            <td class="p-4">
+                                <div class="font-medium text-gray-800">Dhuleti</div>
+                                <div class="text-gray-500 text-sm">Festival of colors</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="font-medium">03-Mar-2026</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="font-medium">Tuesday</div>
+                            </td>
+                        </tr>
+                        
+                        <!-- Row 5: Independence Day -->
+                        <tr class="holiday-row border-b border-gray-100">
+                            <td class="p-4 text-gray-500 font-medium">5</td>
+                            <td class="p-4">
+                                <div class="font-medium text-gray-800">Independence Day</div>
+                                <div class="text-gray-500 text-sm">National holiday</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="font-medium">15-Aug-2026</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="font-medium">Saturday</div>
+                            </td>
+                        </tr>
+                        
+                        <!-- Row 6: Raksha Bandhan -->
+                        <tr class="holiday-row border-b border-gray-100">
+                            <td class="p-4 text-gray-500 font-medium">6</td>
+                            <td class="p-4">
+                                <div class="font-medium text-gray-800">Raksha Bandhan</div>
+                                <div class="text-gray-500 text-sm">Brother-sister festival</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="font-medium">28-Aug-2026</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="font-medium">Friday</div>
+                            </td>
+                        </tr>
+                        
+                        <!-- Row 7: Janmashtami -->
+                        <tr class="holiday-row border-b border-gray-100">
+                            <td class="p-4 text-gray-500 font-medium">7</td>
+                            <td class="p-4">
+                                <div class="font-medium text-gray-800">Janmashtami</div>
+                                <div class="text-gray-500 text-sm">Birth of Lord Krishna</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="font-medium">04-Sep-2026</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="font-medium">Friday</div>
+                            </td>
+                        </tr>
+                        
+                        <!-- Row 8: Vijaya Dashmi -->
+                        <tr class="holiday-row border-b border-gray-100">
+                            <td class="p-4 text-gray-500 font-medium">8</td>
+                            <td class="p-4">
+                                <div class="font-medium text-gray-800">Vijaya Dashmi</div>
+                                <div class="text-gray-500 text-sm">Dussehra festival</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="font-medium">21-Oct-2026</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="font-medium">Wednesday</div>
+                            </td>
+                        </tr>
+                        
+                        <!-- Row 9: Deepavali And Gujarati New Year -->
+                        <tr class="holiday-row">
+                            <td class="p-4 text-gray-500 font-medium">9</td>
+                            <td class="p-4">
+                                <div class="font-medium text-gray-800">Deepavali And Gujarati New Year</div>
+                                <div class="text-gray-500 text-sm">Festival of lights and New Year celebration</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="font-medium">09-Nov-2026 to 10-Nov-2026</div>
+                                <div class="text-gray-500 text-sm">2 days</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="font-medium">Monday - Tuesday</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <!-- Table Footer -->
+                <div class="p-4 border-t border-gray-100 bg-gray-50 text-sm text-gray-500 flex justify-between items-center">
+                    <div>
+                        Showing <span class="font-medium">9</span> holidays for 2026
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="p-2 hover:bg-gray-200 rounded-lg transition">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="p-2 bg-blue-100 text-blue-600 hover:bg-blue-200 rounded-lg transition font-medium w-8">
+                            1
+                        </button>
+                        <button class="p-2 hover:bg-gray-200 rounded-lg transition">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Summary Card -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                <div class="card p-6">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-calendar-day text-blue-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold text-gray-800">9</div>
+                            <div class="text-gray-600">Total Holidays</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card p-6">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-umbrella-beach text-green-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold text-gray-800">2</div>
+                            <div class="text-gray-600">Multi-day Holidays</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card p-6">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-moon text-purple-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold text-gray-800">5</div>
+                            <div class="text-gray-600">Festival Holidays</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="mt-auto p-6 border-t border-gray-200">
+            <div class="flex flex-col md:flex-row justify-between items-center text-gray-600 text-sm">
+                <div class="mb-4 md:mb-0">
+                    Powered by <span class="font-bold text-gray-800">HRMS</span> | Copyright © 2026
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-gray-800 transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-gray-800 transition">Terms of Service</a>
+                    <a href="#" class="hover:text-gray-800 transition">Contact Support</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Year filter functionality
+            const yearSelect = document.querySelector('.year-select');
+            yearSelect.addEventListener('change', function() {
+                const selectedYear = this.value;
+                alert(`Loading holidays for ${selectedYear}...`);
+                // In a real application, this would fetch holidays for the selected year
+            });
+            
+            // Export button functionality
+            document.querySelector('button.bg-blue-600').addEventListener('click', function() {
+                alert('Exporting holiday list as CSV...');
+                // In a real application, this would trigger a download
+            });
+            
+            // Pagination button functionality
+            const paginationButtons = document.querySelectorAll('.p-2.hover\\:bg-gray-200');
+            paginationButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    alert('Navigating to next/previous page...');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

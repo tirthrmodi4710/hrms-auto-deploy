@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HRMS Leave</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .sidebar {
+            background: linear-gradient(180deg, #2c3e50 0%, #1a2530 100%);
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .table-header {
+            background-color: #f8fafc;
+            font-weight: 600;
+            color: #475569;
+        }
+        
+        .leave-row:hover {
+            background-color: #f1f5f9;
+        }
+        
+        .active-nav {
+            background-color: rgba(59, 130, 246, 0.2);
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-sanctioned {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+        
+        .status-pending {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+        
+        .status-rejected {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .filter-btn.active {
+            background-color: #3b82f6;
+            color: white;
+        }
+        
+        .filter-btn {
+            padding: 6px 16px;
+            border-radius: 20px;
+            background-color: #f1f5f9;
+            color: #64748b;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .filter-btn:hover {
+            background-color: #e2e8f0;
+        }
+    </style>
+</head>
+<body class="flex min-h-screen text-gray-800">
+    <!-- Sidebar -->
+    <div class="sidebar w-64 min-h-screen p-6">
+        <!-- Logo -->
+        <div class="mb-10">
+            <h1 class="text-2xl font-bold text-white">HRMS</h1>
+            <p class="text-gray-400 text-sm mt-1">Building imaginations to reality</p>
+        </div>
+        
+        <!-- HRMS Title -->
+        <h2 class="text-lg font-semibold text-gray-300 mb-6">HRMS</h2>
+        
+        <!-- Navigation -->
+        <nav class="space-y-2">
+            <a href="dashboard.html" class="flex items-center p-3 text-gray-300 hover:text-white hover:bg-white/10 rounded-lg transition">
+                <i class="fas fa-tachometer-alt mr-3"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="holidays.html" class="flex items-center p-3 text-gray-300 hover:text-white hover:bg-white/10 rounded-lg transition">
+                <i class="fas fa-calendar-alt mr-3"></i>
+                <span>Holidays</span>
+            </a>
+            <a href="leave.html" class="flex items-center p-3 text-white active-nav rounded-lg transition">
+                <i class="fas fa-sign-out-alt mr-3"></i>
+                <span>Leave</span>
+            </a>
+            
+            <a href="attendance.html" class="flex items-center p-3 text-gray-300 hover:text-white hover:bg-white/10 rounded-lg transition">
+                <i class="fas fa-clock mr-3"></i>
+                <span>Attendance</span>
+            </a>
+        </nav>
+        
+        <!-- Divider -->
+        <div class="my-8 border-t border-gray-700/50"></div>
+        
+        <!-- Quick Stats -->
+        <div class="mt-10">
+            <h3 class="text-sm font-semibold text-gray-400 mb-3">Leave Quick Stats</h3>
+            <div class="space-y-3">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-300 text-sm">Pending Approval</span>
+                    <span class="text-white font-semibold">5</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-300 text-sm">This Month</span>
+                    <span class="text-white font-semibold">14</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-300 text-sm">Team on Leave</span>
+                    <span class="text-white font-semibold">3</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 p-6 overflow-auto">
+        <!-- Top Bar -->
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-2xl font-bold text-gray-800">Leave Management</h2>
+            
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <i class="fas fa-bell text-gray-500 text-xl"></i>
+                    <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">5</span>
+                </div>
+                <div class="flex items-center bg-white p-3 rounded-lg shadow-sm">
+                    <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-3">
+                        T
+                    </div>
+                    <div>
+                        <div class="font-medium">Aria Bennett</div>
+                        <div class="text-xs text-gray-500">devops</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Leave Summary Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <!-- Total Leaves -->
+            <div class="card p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-gray-700 font-semibold">Total Leaves</h3>
+                    <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-calendar-check text-blue-600"></i>
+                    </div>
+                </div>
+                <div class="text-3xl font-bold text-gray-800 mb-2">3</div>
+                <div class="text-sm text-gray-500">Leaves taken this year</div>
+            </div>
+            
+            <!-- Total Balance -->
+            <div class="card p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-gray-700 font-semibold">Total Balance</h3>
+                    <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-wallet text-green-600"></i>
+                    </div>
+                </div>
+                <div class="text-3xl font-bold text-gray-800 mb-2">2</div>
+                <div class="text-sm text-gray-500">Remaining leave balance</div>
+            </div>
+            
+            <!-- Lop -->
+            <div class="card p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-gray-700 font-semibold">LOP</h3>
+                    <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-exclamation-triangle text-red-600"></i>
+                    </div>
+                </div>
+                <div class="text-3xl font-bold text-gray-800 mb-2">0</div>
+                <div class="text-sm text-gray-500">Loss of pay days</div>
+            </div>
+        </div>
+        
+        <!-- Action Bar -->
+        <div class="flex justify-between items-center mb-6">
+            <div class="text-gray-700 font-medium">
+                Leave Applications
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <!-- Filter Buttons -->
+                <div class="flex space-x-2">
+                    <button class="filter-btn active">All Status</button>
+                    <button class="filter-btn">Pending</button>
+                    <button class="filter-btn">Sanctioned</button>
+                    <button class="filter-btn">Rejected</button>
+                </div>
+                
+                <!-- Apply Leave Button -->
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg font-medium transition flex items-center">
+                    <i class="fas fa-plus mr-2"></i>
+                    Apply Leave
+                </button>
+            </div>
+        </div>
+        
+        <!-- Leave Table -->
+        <div class="card overflow-hidden mb-8">
+            <table class="w-full">
+                <caption class="sr-only">Employee leave application records</caption>
+
+                <thead class="table-header">
+                    <tr>
+                        <th class="p-4 text-left w-16">#</th>
+                        <th class="p-4 text-left">Name</th>
+                        <th class="p-4 text-left">Duration</th>
+                        <th class="p-4 text-left">Date</th>
+                        <th class="p-4 text-left">Status</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    <!-- Row 1: Tirth R Modi - 1 Day(s) -->
+                    <tr class="leave-row border-b border-gray-100">
+                        <td class="p-4 text-gray-500 font-medium">1</td>
+                        <td class="p-4">
+                            <div class="font-medium text-gray-800">Mateo Alvarez</div>
+                            <div class="text-gray-500 text-sm">Intern</div>
+                        </td>
+                        <td class="p-4">
+                            <div class="font-medium">1 Day(s)</div>
+                        </td>
+                        <td class="p-4">
+                            <div class="font-medium">30-JAN-2026</div>
+                            <div class="text-gray-500 text-sm">Single day leave</div>
+                        </td>
+                        <td class="p-4">
+                            <span class="status-badge status-sanctioned">Sanctioned</span>
+                        </td>
+                    </tr>
+                    
+                    <!-- Row 2: Tirth R Modi - 2 Day(s) -->
+                    <tr class="leave-row border-b border-gray-100">
+                        <td class="p-4 text-gray-500 font-medium">2</td>
+                        <td class="p-4">
+                            <div class="font-medium text-gray-800">Jasmine Cole</div>
+                            <div class="text-gray-500 text-sm">Intern</div>
+                        </td>
+                        <td class="p-4">
+                            <div class="font-medium">2 Day(s)</div>
+                            <div class="text-gray-500 text-sm">Consecutive days</div>
+                        </td>
+                        <td class="p-4">
+                            <div class="font-medium">25-DEC-2025 - 26-DEC-2025</div>
+                            <div class="text-gray-500 text-sm">Christmas holiday period</div>
+                        </td>
+                        <td class="p-4">
+                            <div class="space-y-1">
+                                <div>
+                                    <span class="status-badge status-sanctioned">Sanctioned</span>
+                                </div>
+                                <div>
+                                    <span class="status-badge status-pending">LOP(2)</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <!-- Additional rows for demonstration -->
+                    <tr class="leave-row border-b border-gray-100">
+                        <td class="p-4 text-gray-500 font-medium">3</td>
+                        <td class="p-4">
+                            <div class="font-medium text-gray-800">Ethan Walker</div>
+                            <div class="text-gray-500 text-sm">frontend</div>
+                        </td>
+                        <td class="p-4">
+                            <div class="font-medium">3 Day(s)</div>
+                        </td>
+                        <td class="p-4">
+                            <div class="font-medium">15-FEB-2026 - 17-FEB-2026</div>
+                            <div class="text-gray-500 text-sm">Family function</div>
+                        </td>
+                        <td class="p-4">
+                            <span class="status-badge status-pending">Pending</span>
+                        </td>
+                    </tr>
+                    
+                    <tr class="leave-row">
+                        <td class="p-4 text-gray-500 font-medium">4</td>
+                        <td class="p-4">
+                            <div class="font-medium text-gray-800">Lucas Donovan</div>
+                            <div class="text-gray-500 text-sm">Quality Analyst</div>
+                        </td>
+                        <td class="p-4">
+                            <div class="font-medium">1 Day(s)</div>
+                        </td>
+                        <td class="p-4">
+                            <div class="font-medium">28-FEB-2026</div>
+                            <div class="text-gray-500 text-sm">Medical appointment</div>
+                        </td>
+                        <td class="p-4">
+                            <span class="status-badge status-sanctioned">Sanctioned</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <!-- Table Footer -->
+            <div class="p-4 border-t border-gray-100 bg-gray-50 text-sm text-gray-500 flex justify-between items-center">
+                <div>
+                    Showing <span class="font-medium">4</span> leave applications
+                </div>
+                <div class="flex space-x-2">
+                    <button class="p-2 hover:bg-gray-200 rounded-lg transition">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="p-2 bg-blue-100 text-blue-600 hover:bg-blue-200 rounded-lg transition font-medium w-8">
+                        1
+                    </button>
+                    <button class="p-2 hover:bg-gray-200 rounded-lg transition">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Leave Type Breakdown -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <!-- Leave Balance by Type -->
+            <div class="card p-6">
+                <h3 class="font-semibold text-gray-700 mb-6">Leave Balance by Type</h3>
+                
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>Casual Leave</span>
+                            <span class="font-medium">5/12 days</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-blue-600 h-2.5 rounded-full" style="width: 42%"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>Sick Leave</span>
+                            <span class="font-medium">3/10 days</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-green-600 h-2.5 rounded-full" style="width: 30%"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>Earned Leave</span>
+                            <span class="font-medium">2/15 days</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-purple-600 h-2.5 rounded-full" style="width: 13%"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>Maternity Leave</span>
+                            <span class="font-medium">0/180 days</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-pink-600 h-2.5 rounded-full" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Upcoming Leaves -->
+            <div class="card p-6">
+                <h3 class="font-semibold text-gray-700 mb-6">Upcoming Leaves</h3>
+                
+                <div class="space-y-4">
+                    <div class="flex items-center p-3 bg-blue-50 rounded-lg">
+                        <div class="text-center mr-4">
+                            <div class="text-blue-600 font-bold text-lg">01</div>
+                            <div class="text-blue-500 text-xs">Mar</div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium">Annual Function</div>
+                            <div class="text-gray-500 text-sm">Team event participation</div>
+                        </div>
+                        <span class="status-badge status-pending">Pending</span>
+                    </div>
+                    
+                    <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                        <div class="text-center mr-4">
+                            <div class="text-gray-600 font-bold text-lg">15</div>
+                            <div class="text-gray-500 text-xs">Mar</div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium">Family Wedding</div>
+                            <div class="text-gray-500 text-sm">Out of station</div>
+                        </div>
+                        <span class="status-badge status-sanctioned">Sanctioned</span>
+                    </div>
+                    
+                    <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                        <div class="text-center mr-4">
+                            <div class="text-gray-600 font-bold text-lg">22</div>
+                            <div class="text-gray-500 text-xs">Apr</div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium">Medical Checkup</div>
+                            <div class="text-gray-500 text-sm">Routine health check</div>
+                        </div>
+                        <span class="status-badge status-pending">Pending</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="mt-auto pt-6 border-t border-gray-200">
+            <div class="text-center text-gray-600 text-sm">
+                Powered by <span class="font-bold text-gray-800">HRMS</span> | Copyright © 2026
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Filter button functionality
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    this.classList.add('active');
+                    
+                    const filter = this.textContent;
+                    alert(`Filtering by: ${filter}`);
+                    
+                });
+            });
+            
+            document.querySelector('button.bg-blue-600').addEventListener('click', function() {
+                alert('Opening leave application form...');
+                
+            });
+        });
+    </script>
+</html>
+</body>
